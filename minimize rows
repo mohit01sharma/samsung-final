@@ -1,0 +1,27 @@
+#include <iostream>
+#include <vector>
+#include <map>
+
+using namespace std;
+
+int minimumRows(vector<int> &A)
+{
+    map<int, int> rows;
+    for (auto &height : A)
+    {
+        auto it = rows.upper_bound(height);
+        if (it != rows.end())
+        {
+            rows.erase(it->first);
+        }
+        rows[height] = 1;
+    }
+    return rows.size();
+}
+
+int main()
+{
+    vector<int> heights = {2, 3, 4, 1, 2, 3, 1, 2};
+    cout << "Minimum number of rows created: " << minimumRows(heights) << endl;
+    return 0;
+}
